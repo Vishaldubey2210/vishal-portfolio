@@ -1,0 +1,441 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Vishal Kumar Portfolio{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="position-relative">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                <h1 class="display-1 mb-3" style="font-weight: 800;">
+                    Hi, I'm <span class="gradient-text">Vishal Kumar</span>
+                </h1>
+                <h3 class="display-6 mb-4 text-secondary">
+                    <span id="typed-text"></span>
+                    <span class="cursor">|</span>
+                </h3>
+                <p class="lead mb-4" style="font-size: 1.1rem;">
+                    Passionate about turning data into actionable insights. 
+                    First-year student exploring Machine Learning, Data Science, and AI.
+                </p>
+                
+                <!-- Tech Stack -->
+                <div class="mb-4">
+                    <h6 class="text-muted mb-3">Tech Stack:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge-custom">Python</span>
+                        <span class="badge-custom">C/C++</span>
+                        <span class="badge-custom">JavaScript</span>
+                        <span class="badge-custom">MERN</span>
+                        <span class="badge-custom">Flask</span>
+                        <span class="badge-custom">MongoDB</span>
+                        <span class="badge-custom">SQL/SQLite</span>
+                        <span class="badge-custom">NumPy</span>
+                        <span class="badge-custom">Pandas</span>
+                        <span class="badge-custom">Power BI</span>
+                        <span class="badge-custom">LangChain</span>
+                        <span class="badge-custom">LangGraph</span>
+                        <span class="badge-custom">Hugging Face</span>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-3 mb-4">
+                    <a href="#projects" class="btn btn-primary btn-lg">
+                        <i class="fas fa-folder-open me-2"></i>View Projects
+                    </a>
+                    <a href="/contact" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Contact Me
+                    </a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="d-flex gap-3">
+                    <a href="https://github.com/Vishaldubey2210" target="_blank" class="text-primary" style="font-size: 1.8rem;">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/vishal-kumar-a57a08290" target="_blank" class="text-primary" style="font-size: 1.8rem;">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.kaggle.com/vishaldubey1234567" target="_blank" class="text-primary" style="font-size: 1.8rem;">
+                        <i class="fab fa-kaggle"></i>
+                    </a>
+                    <a href="https://leetcode.com/u/OaLgTnrNHf/" target="_blank" class="text-primary" style="font-size: 1.8rem;">
+                        <i class="fas fa-code"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="profile-container position-relative">
+                    <!-- Profile Image Circle -->
+                    <div class="profile-circle">
+                        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Vishal Kumar" class="profile-image">
+                        <div class="profile-ring"></div>
+                        <div class="profile-ring-2"></div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="floating-element" style="top: 10%; right: -10%;">
+                        <div class="glass-effect p-3 rounded">
+                            <i class="fas fa-code text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-element" style="bottom: 20%; left: -10%;">
+                        <div class="glass-effect p-3 rounded">
+                            <i class="fas fa-chart-line text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-element" style="top: 50%; right: -5%;">
+                        <div class="glass-effect p-3 rounded">
+                            <i class="fas fa-brain text-primary fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-white" id="stats">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-card hover-lift">
+                    <i class="fas fa-project-diagram fa-3x mb-3"></i>
+                    <h3>5+</h3>
+                    <p class="text-muted mb-0">Projects Completed</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-card hover-lift">
+                    <i class="fas fa-code fa-3x mb-3"></i>
+                    <h3>15+</h3>
+                    <p class="text-muted mb-0">Technologies</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-card hover-lift">
+                    <i class="fas fa-trophy fa-3x mb-3"></i>
+                    <h3>3+</h3>
+                    <p class="text-muted mb-0">Hackathons</p>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-card hover-lift">
+                    <i class="fas fa-certificate fa-3x mb-3"></i>
+                    <h3>10+</h3>
+                    <p class="text-muted mb-0">Certifications</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="py-5" id="projects">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 mb-3">
+                Featured <span class="gradient-text">Projects</span>
+            </h2>
+            <p class="lead text-muted">Showcasing my recent work in Data Science, ML, and Web Development</p>
+        </div>
+        
+        <div id="projects-container" class="row g-4">
+            <div class="col-12 text-center">
+                <div class="loading"></div>
+                <p class="text-muted mt-3">Loading projects...</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="/projects" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-folder-open me-2"></i>View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 mb-3">
+                Skills & <span class="gradient-text">Technologies</span>
+            </h2>
+            <p class="lead text-muted">Tools and technologies I work with</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Programming Languages -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-code fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Programming</h4>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <span class="badge-custom">Python</span>
+                        <span class="badge-custom">C</span>
+                        <span class="badge-custom">C++</span>
+                        <span class="badge-custom">JavaScript</span>
+                        <span class="badge-custom">HTML/CSS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Science & ML -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-brain fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Data Science & ML</h4>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <span class="badge-custom">NumPy</span>
+                        <span class="badge-custom">Pandas</span>
+                        <span class="badge-custom">Scikit-learn</span>
+                        <span class="badge-custom">Power BI</span>
+                        <span class="badge-custom">LangChain</span>
+                        <span class="badge-custom">LangGraph</span>
+                        <span class="badge-custom">Hugging Face</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Web Development & Databases -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-database fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Web & Databases</h4>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <span class="badge-custom">MERN Stack</span>
+                        <span class="badge-custom">Flask</span>
+                        <span class="badge-custom">MongoDB</span>
+                        <span class="badge-custom">SQL</span>
+                        <span class="badge-custom">SQLite</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="glass-effect p-5 text-center" data-aos="zoom-in">
+            <h2 class="display-5 mb-3">
+                Let's Build Something <span class="gradient-text">Amazing</span>
+            </h2>
+            <p class="lead text-muted mb-4">
+                I'm always open to discussing new projects, creative ideas, or opportunities.
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="/contact" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Get in Touch
+                </a>
+                <a href="/projects" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-folder-open me-2"></i>View Projects
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    // Typing Animation
+    const texts = [
+        'Data Science Enthusiast',
+        'Machine Learning Explorer',
+        'Full Stack Developer',
+        'AI Researcher',
+        'Problem Solver'
+    ];
+    
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedElement = document.getElementById('typed-text');
+    
+    function type() {
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+            typedElement.textContent = currentText.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedElement.textContent = currentText.substring(0, charIndex + 1);
+            charIndex++;
+        }
+        
+        let typeSpeed = isDeleting ? 50 : 100;
+        
+        if (!isDeleting && charIndex === currentText.length) {
+            typeSpeed = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+            typeSpeed = 500;
+        }
+        
+        setTimeout(type, typeSpeed);
+    }
+    
+    // Start typing animation
+    setTimeout(type, 1000);
+    
+    // Load Projects
+    async function loadProjects() {
+        try {
+            const response = await fetch('/api/projects');
+            const data = await response.json();
+            
+            if (data.success && data.projects.length > 0) {
+                displayProjects(data.projects.slice(0, 3)); // Show first 3 projects
+            } else {
+                document.getElementById('projects-container').innerHTML = `
+                    <div class="col-12 text-center">
+                        <p class="text-muted">No projects available yet.</p>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading projects:', error);
+        }
+    }
+    
+    function displayProjects(projects) {
+        const container = document.getElementById('projects-container');
+        
+        container.innerHTML = projects.map((project, index) => `
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="${(index + 1) * 100}">
+                <div class="project-card hover-lift">
+                    <img src="${project.image}" alt="${project.title}">
+                    <div>
+                        <h5>${project.title}</h5>
+                        <p class="text-muted mb-3">${project.description.substring(0, 100)}...</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            ${project.tags.slice(0, 3).map(tag => `<span class="badge-custom">${tag}</span>`).join('')}
+                        </div>
+                        <div class="d-flex gap-2">
+                            ${project.github ? `<a href="${project.github}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fab fa-github me-1"></i>Code</a>` : ''}
+                            ${project.demo ? `<a href="${project.demo}" target="_blank" class="btn btn-sm btn-primary"><i class="fas fa-external-link-alt me-1"></i>Demo</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Load projects on page load
+    loadProjects();
+</script>
+
+<style>
+/* Profile Container */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+.profile-circle {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary);
+    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
+    position: relative;
+    z-index: 2;
+}
+
+.profile-ring {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    border: 3px solid rgba(99, 102, 241, 0.3);
+    animation: rotate 20s linear infinite;
+}
+
+.profile-ring-2 {
+    position: absolute;
+    width: 410px;
+    height: 410px;
+    border-radius: 50%;
+    border: 2px dashed rgba(99, 102, 241, 0.2);
+    animation: rotate 30s linear infinite reverse;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.floating-element {
+    position: absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@media (max-width: 991px) {
+    .profile-circle {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .profile-image {
+        width: 260px;
+        height: 260px;
+    }
+    
+    .profile-ring {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .profile-ring-2 {
+        width: 310px;
+        height: 310px;
+    }
+}
+</style>
+{% endblock %}

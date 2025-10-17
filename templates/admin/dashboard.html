@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard | Vishal Kumar{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 mb-4">
+                <div class="glass-effect p-3 rounded">
+                    <h5 class="text-white mb-4">Dashboard</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link text-white active" href="/admin/dashboard">
+                            <i class="fas fa-chart-line me-2"></i>Overview
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/projects">
+                            <i class="fas fa-folder me-2"></i>Projects
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/blogs">
+                            <i class="fas fa-blog me-2"></i>Blogs
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/certifications">
+                            <i class="fas fa-certificate me-2"></i>Certifications
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/analytics">
+                            <i class="fas fa-chart-bar me-2"></i>Analytics
+                        </a>
+                        <hr style="border-color: rgba(255,255,255,0.1);">
+                        <a class="nav-link text-danger" href="/admin/logout">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-10">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="gradient-text">Admin Dashboard</h2>
+                    <div>
+                        <span class="text-muted me-3">
+                            <i class="fas fa-user me-2"></i>Admin
+                        </span>
+                        <span class="text-muted">
+                            <i class="fas fa-clock me-2"></i><span id="current-time"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Total Projects</h6>
+                                    <h3 class="text-white mb-0" id="stat-projects">0</h3>
+                                </div>
+                                <i class="fas fa-folder fa-3x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Total Blogs</h6>
+                                    <h3 class="text-white mb-0" id="stat-blogs">0</h3>
+                                </div>
+                                <i class="fas fa-blog fa-3x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Certifications</h6>
+                                    <h3 class="text-white mb-0" id="stat-certs">0</h3>
+                                </div>
+                                <i class="fas fa-certificate fa-3x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Active Visitors</h6>
+                                    <h3 class="text-white mb-0" id="stat-visitors">0</h3>
+                                </div>
+                                <i class="fas fa-users fa-3x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="glass-effect p-4 mb-4">
+                    <h4 class="text-white mb-4">Quick Actions</h4>
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <a href="/admin/projects" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-plus me-2"></i>Add Project
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/admin/blogs" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-pen me-2"></i>Write Blog
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/admin/certifications" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-certificate me-2"></i>Add Certificate
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-eye me-2"></i>View Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="glass-effect p-4">
+                    <h4 class="text-white mb-4">System Status</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle fa-2x text-success me-3"></i>
+                                <div>
+                                    <h6 class="text-white mb-0">Server Status</h6>
+                                    <small class="text-muted">Running</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-database fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="text-white mb-0">Database</h6>
+                                    <small class="text-muted">In-Memory (SQLite Ready)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Update current time
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('current-time').textContent = now.toLocaleTimeString();
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Load stats
+    async function loadStats() {
+        try {
+            const response = await fetch('/api/admin/stats');
+            const data = await response.json();
+            
+            if (data.success) {
+                document.getElementById('stat-projects').textContent = data.stats.totalProjects;
+                document.getElementById('stat-blogs').textContent = data.stats.totalBlogs;
+                document.getElementById('stat-certs').textContent = data.stats.totalCertifications;
+                document.getElementById('stat-visitors').textContent = data.stats.activeVisitors;
+            }
+        } catch (error) {
+            console.error('Error loading stats:', error);
+        }
+    }
+
+    loadStats();
+    setInterval(loadStats, 5000); // Update every 5 seconds
+</script>
+{% endblock %}

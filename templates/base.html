@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vishal Kumar - Portfolio{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Chatbot Styles -->
+    <style>
+    /* ==================== CHATBOT STYLES ==================== */
+    
+    #chatbot-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 10000;
+    }
+
+    #chatbot-bubble {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22D3EE, #8B5CF6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 8px 30px rgba(34, 211, 238, 0.5);
+        transition: all 0.3s ease;
+        position: relative;
+        animation: chatPulse 2s infinite;
+    }
+
+    #chatbot-bubble:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 40px rgba(34, 211, 238, 0.7);
+    }
+
+    #chatbot-bubble i {
+        font-size: 24px;
+        color: white;
+    }
+
+    .chat-notification {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #EF4444;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        animation: chatBounce 0.5s infinite;
+    }
+
+    @keyframes chatPulse {
+        0%, 100% {
+            box-shadow: 0 8px 30px rgba(34, 211, 238, 0.5);
+        }
+        50% {
+            box-shadow: 0 8px 50px rgba(139, 92, 246, 0.7);
+        }
+    }
+
+    @keyframes chatBounce {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+    }
+
+    #chatbot-window {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 380px;
+        height: 550px;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(34, 211, 238, 0.3);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    #chatbot-window.chatbot-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    .chatbot-header {
+        background: linear-gradient(135deg, #1E293B, #0F172A);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+    }
+
+    .chatbot-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22D3EE, #8B5CF6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+    }
+
+    .chatbot-avatar i {
+        color: white;
+        font-size: 20px;
+    }
+
+    .chatbot-header h6 {
+        color: white;
+        margin: 0;
+    }
+
+    .chatbot-header small {
+        color: #10B981;
+        font-size: 11px;
+    }
+
+    .chatbot-header small i {
+        font-size: 8px;
+        margin-right: 5px;
+    }
+
+    .btn-close-chat {
+        background: transparent;
+        border: none;
+        color: #94A3B8;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-close-chat:hover {
+        color: #EF4444;
+        transform: rotate(90deg);
+    }
+
+    .chatbot-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .chatbot-messages::-webkit-scrollbar-thumb {
+        background: #22D3EE;
+        border-radius: 10px;
+    }
+
+    .message {
+        display: flex;
+        gap: 10px;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .bot-message {
+        align-self: flex-start;
+    }
+
+    .user-message {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22D3EE, #8B5CF6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .message-avatar i {
+        color: white;
+        font-size: 14px;
+    }
+
+    .user-message .message-avatar {
+        background: linear-gradient(135deg, #F59E0B, #EF4444);
+    }
+
+    .message-content {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 12px 16px;
+        border-radius: 15px;
+        color: #E2E8F0;
+        max-width: 70%;
+        word-wrap: break-word;
+        line-height: 1.5;
+    }
+
+    .user-message .message-content {
+        background: linear-gradient(135deg, #22D3EE, #8B5CF6);
+        color: white;
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22D3EE;
+        animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+        0%, 60%, 100% {
+            transform: translateY(0);
+        }
+        30% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .chatbot-input {
+        padding: 20px;
+        background: rgba(30, 41, 59, 0.8);
+        border-top: 1px solid rgba(34, 211, 238, 0.2);
+        display: flex;
+        gap: 10px;
+    }
+
+    .chatbot-input input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(34, 211, 238, 0.3);
+        border-radius: 25px;
+        padding: 12px 20px;
+        color: white;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .chatbot-input input:focus {
+        border-color: #22D3EE;
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+    }
+
+    .chatbot-input input::placeholder {
+        color: #64748B;
+    }
+
+    .chatbot-input button {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22D3EE, #8B5CF6);
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chatbot-input button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 20px rgba(34, 211, 238, 0.5);
+    }
+
+    @media (max-width: 480px) {
+        #chatbot-window {
+            width: calc(100vw - 40px);
+            height: calc(100vh - 100px);
+            bottom: 70px;
+            right: 0;
+            left: 20px;
+        }
+    }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Canvas for particles -->
+    <canvas id="particles-canvas"></canvas>
+    <canvas id="cursor-trail"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">VISHAL KUMAR</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/certifications">Certifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <!-- Visitor Counter -->
+                <div class="ms-3 d-flex align-items-center">
+                    <span class="status-dot me-2"></span>
+                    <small class="text-white" id="visitor-count">0 online</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h3 class="gradient-text mb-3">Vishal Kumar</h3>
+                    <p class="text-muted">Data Science & ML Enthusiast | Full Stack Developer | AI Researcher</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="https://github.com/Vishaldubey2210" target="_blank" class="text-white">
+                            <i class="fab fa-github fa-2x"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/vishal-kumar-a57a08290" target="_blank" class="text-white">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="https://www.kaggle.com/vishaldubey1234567" target="_blank" class="text-white">
+                            <i class="fab fa-kaggle fa-2x"></i>
+                        </a>
+                        <a href="https://leetcode.com/u/OaLgTnrNHf/" target="_blank" class="text-white">
+                            <i class="fas fa-code fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-muted text-decoration-none">Home</a></li>
+                        <li><a href="/about" class="text-muted text-decoration-none">About</a></li>
+                        <li><a href="/projects" class="text-muted text-decoration-none">Projects</a></li>
+                        <li><a href="/blog" class="text-muted text-decoration-none">Blog</a></li>
+                        <li><a href="/contact" class="text-muted text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3">Contact</h5>
+                    <p class="text-muted">
+                        <i class="fas fa-envelope me-2"></i>
+                        vishaldubey221005@gmail.com
+                    </p>
+                    <p class="text-muted">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        India
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.1);">
+            
+            <div class="text-center">
+                <p class="text-muted mb-0">
+                    &copy; 2025 Vishal Kumar. All rights reserved. | 
+                    <a href="/admin" class="text-primary text-decoration-none">Admin</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chatbot Widget -->
+    <div id="chatbot-container">
+        <div id="chatbot-bubble" onclick="toggleChatbot()">
+            <i class="fas fa-comments"></i>
+            <span class="chat-notification">1</span>
+        </div>
+
+        <div id="chatbot-window" class="chatbot-hidden">
+            <div class="chatbot-header">
+                <div class="d-flex align-items-center">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-0">AI Assistant</h6>
+                        <small class="text-success"><i class="fas fa-circle"></i> Online</small>
+                    </div>
+                </div>
+                <button class="btn-close-chat" onclick="toggleChatbot()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        Hi! 👋 I'm Vishal's AI assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input-field" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+
+        // Socket.IO Connection
+        const socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+            socket.emit('page_view', { page: window.location.pathname });
+        });
+
+        socket.on('visitor_count', function(data) {
+            document.getElementById('visitor-count').textContent = data.count + ' online';
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Particles Canvas
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(34, 211, 238, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Cursor Trail
+        const trailCanvas = document.getElementById('cursor-trail');
+        const trailCtx = trailCanvas.getContext('2d');
+        trailCanvas.width = window.innerWidth;
+        trailCanvas.height = window.innerHeight;
+
+        const trail = [];
+        const maxTrail = 20;
+
+        document.addEventListener('mousemove', (e) => {
+            trail.push({ x: e.clientX, y: e.clientY });
+            if (trail.length > maxTrail) trail.shift();
+        });
+
+        function drawTrail() {
+            trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+            trail.forEach((point, index) => {
+                const opacity = (index + 1) / maxTrail;
+                const radius = (index + 1) / 4;
+                trailCtx.beginPath();
+                trailCtx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+                trailCtx.fillStyle = `rgba(34, 211, 238, ${opacity * 0.3})`;
+                trailCtx.fill();
+            });
+            requestAnimationFrame(drawTrail);
+        }
+
+        drawTrail();
+
+        // ==================== CHATBOT FUNCTIONALITY ====================
+        
+        function toggleChatbot() {
+            const chatWindow = document.getElementById('chatbot-window');
+            const notification = document.querySelector('.chat-notification');
+            
+            chatWindow.classList.toggle('chatbot-hidden');
+            
+            if (!chatWindow.classList.contains('chatbot-hidden')) {
+                notification.style.display = 'none';
+                document.getElementById('chatbot-input-field').focus();
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('chatbot-input-field');
+            const message = inputField.value.trim();
+            
+            if (message === '') return;
+            
+            addMessage(message, 'user');
+            inputField.value = '';
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 1500);
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.innerHTML = sender === 'bot' ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = text;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            messagesContainer.appendChild(messageDiv);
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return "Hello! 👋 How can I assist you today?";
+            } else if (lowerMessage.includes('project')) {
+                return "I've worked on 5+ projects including Bihar Violence Analysis, Spider-Man OpenCV Game, Seven Sister Gateway, and more. Check out the Projects page!";
+            } else if (lowerMessage.includes('skill') || lowerMessage.includes('technology')) {
+                return "I'm proficient in Python, Machine Learning, Flask, Data Science, Computer Vision, and more!";
+            } else if (lowerMessage.includes('contact') || lowerMessage.includes('email')) {
+                return "You can reach Vishal at vishaldubey221005@gmail.com or use the Contact page!";
+            } else if (lowerMessage.includes('github')) {
+                return "Check out my GitHub: https://github.com/Vishaldubey2210";
+            } else if (lowerMessage.includes('linkedin')) {
+                return "Connect on LinkedIn: https://www.linkedin.com/in/vishal-kumar-a57a08290";
+            } else if (lowerMessage.includes('experience') || lowerMessage.includes('education')) {
+                return "I'm a first-year college student with experience in hackathons, open-source contributions, and multiple projects!";
+            } else if (lowerMessage.includes('blog')) {
+                return "Check out my blog posts on Machine Learning, Flask, and Computer Vision!";
+            } else if (lowerMessage.includes('certification')) {
+                return "Visit the Certifications page to see my achievements!";
+            } else if (lowerMessage.includes('help')) {
+                return "I can help you with information about projects, skills, experience, or contact details. Just ask! 😊";
+            } else {
+                return "That's interesting! Feel free to explore my portfolio or ask me about projects, skills, or contact information. 😊";
+            }
+        }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+    <!-- Three.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- 3D Effects Script -->
+<script src="{{ url_for('static', filename='js/3d-effects.js') }}"></script>
+
+</body>
+</html>

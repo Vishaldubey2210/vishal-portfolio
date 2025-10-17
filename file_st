@@ -1,0 +1,56 @@
+vishal-portfolio-flask/
+│
+├── 📂 static/
+│   ├── 📂 css/
+│   │   └── style.css
+│   ├── 📂 js/
+│   │   ├── main.js
+│   │   ├── particles.js
+│   │   └── analytics.js
+│   ├── 📂 images/
+│   ├── 📂 sounds/
+│   │   ├── click.mp3
+│   │   └── hover.mp3
+│   └── 📂 uploads/
+│
+├── 📂 templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── about.html
+│   ├── projects.html
+│   ├── blog.html
+│   ├── blog_post.html
+│   ├── certifications.html
+│   ├── contact.html
+│   └── 📂 admin/
+│       ├── login.html
+│       ├── dashboard.html
+│       ├── projects_manager.html
+│       ├── blog_manager.html
+│       ├── analytics.html
+│       └── settings.html
+│
+├── 📂 models/
+│   ├── __init__.py
+│   ├── project.py
+│   ├── blog.py
+│   ├── certificate.py
+│   └── analytics.py
+│
+├── 📂 routes/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── projects.py
+│   ├── blog.py
+│   ├── admin.py
+│   └── analytics.py
+│
+├── 📂 utils/
+│   ├── __init__.py
+│   ├── database.py
+│   └── helpers.py
+│
+├── app.py
+├── config.py
+├── requirements.txt
+└── .env

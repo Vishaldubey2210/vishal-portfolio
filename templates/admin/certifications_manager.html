@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Certifications | Admin{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 mb-4">
+                <div class="glass-effect p-3 rounded">
+                    <h5 class="text-white mb-4">Dashboard</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link text-muted" href="/admin/dashboard">
+                            <i class="fas fa-chart-line me-2"></i>Overview
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/projects">
+                            <i class="fas fa-folder me-2"></i>Projects
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/blogs">
+                            <i class="fas fa-blog me-2"></i>Blogs
+                        </a>
+                        <a class="nav-link text-white active" href="/admin/certifications">
+                            <i class="fas fa-certificate me-2"></i>Certifications
+                        </a>
+                        <a class="nav-link text-muted" href="/admin/analytics">
+                            <i class="fas fa-chart-bar me-2"></i>Analytics
+                        </a>
+                        <hr style="border-color: rgba(255,255,255,0.1);">
+                        <a class="nav-link text-danger" href="/admin/logout">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-10">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="gradient-text">Manage Certifications</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCertModal">
+                        <i class="fas fa-plus me-2"></i>Add New Certification
+                    </button>
+                </div>
+
+                <!-- Certifications List -->
+                <div id="certs-list" class="row g-4">
+                    <div class="col-12 text-center">
+                        <div class="loading"></div>
+                        <p class="text-muted mt-3">Loading certifications...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Add Certification Modal -->
+<div class="modal fade" id="addCertModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content glass-effect border-primary">
+            <div class="modal-header border-0">
+                <h5 class="modal-title gradient-text">Add New Certification</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-cert-form">
+                    <div class="mb-3">
+                        <label class="form-label text-white">Certification Title *</label>
+                        <input type="text" name="title" class="form-control bg-transparent text-white" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Issuer/Organization *</label>
+                        <input type="text" name="issuer" class="form-control bg-transparent text-white" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Issue Date *</label>
+                        <input type="date" name="date" class="form-control bg-transparent text-white" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Credential URL (optional)</label>
+                        <input type="url" name="url" class="form-control bg-transparent text-white" placeholder="https://example.com/verify">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Certificate Image (optional)</label>
+                        <input type="file" name="image" class="form-control bg-transparent text-white" accept="image/*">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-2"></i>Save Certification
+                    </button>
+
+                    <div id="cert-message" class="mt-3"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let allCerts = [];
+
+    // Load certifications
+    async function loadCerts() {
+        try {
+            const response = await fetch('/api/certifications');
+            const data = await response.json();
+            allCerts = data.certifications;
+            displayCerts(allCerts);
+        } catch (error) {
+            console.error('Error loading certifications:', error);
+        }
+    }
+
+    // Display certifications
+    function displayCerts(certs) {
+        const container = document.getElementById('certs-list');
+        
+        if (certs.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-muted">No certifications yet. Add your first certification!</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = certs.map(cert => `
+            <div class="col-md-6">
+                <div class="glass-effect p-3 rounded">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="text-white mb-1">${cert.title}</h5>
+                            <p class="text-muted small mb-0">${cert.issuer}</p>
+                            <small class="text-primary">${cert.date}</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCert(${cert.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    ${cert.url ? `<a href="${cert.url}" target="_blank" class="text-primary text-decoration-none small">
+                        <i class="fas fa-external-link-alt me-1"></i>Verify Credential
+                    </a>` : ''}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Add certification form
+    document.getElementById('add-cert-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const messageDiv = document.getElementById('cert-message');
+        
+        const certData = {
+            title: formData.get('title'),
+            issuer: formData.get('issuer'),
+            date: formData.get('date'),
+            url: formData.get('url') || null
+        };
+        
+        try {
+            const response = await fetch('/api/admin/certifications', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(certData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                messageDiv.innerHTML = `<div class="alert alert-success">${result.message}</div>`;
+                e.target.reset();
+                setTimeout(() => {
+                    bootstrap.Modal.getInstance(document.getElementById('addCertModal')).hide();
+                    loadCerts();
+                }, 2000);
+            } else {
+                messageDiv.innerHTML = `<div class="alert alert-danger">${result.message}</div>`;
+            }
+        } catch (error) {
+            messageDiv.innerHTML = `<div class="alert alert-danger">Failed to add certification</div>`;
+        }
+    });
+
+    // Delete certification
+    async function deleteCert(id) {
+        if (confirm('Are you sure you want to delete this certification?')) {
+            try {
+                const response = await fetch(`/api/admin/certifications?id=${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    loadCerts();
+                }
+            } catch (error) {
+                alert('Failed to delete certification');
+            }
+        }
+    }
+
+    loadCerts();
+</script>
+{% endblock %}

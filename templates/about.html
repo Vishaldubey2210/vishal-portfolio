@@ -1,0 +1,494 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Vishal Kumar{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="py-5 mt-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                <div class="profile-container-about">
+                    <!-- Profile Image Circle -->
+                    <div class="profile-circle-about">
+                        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Vishal Kumar" class="profile-image-about">
+                        <div class="profile-ring-about"></div>
+                        <div class="profile-ring-2-about"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7" data-aos="fade-left">
+                <h1 class="display-3 mb-3">
+                    About <span class="gradient-text">Me</span>
+                </h1>
+                <p class="lead mb-4">
+                    Passionate Computer Science student specializing in Data Science, Machine Learning, and AI Development.
+                </p>
+                <p class="text-muted mb-4">
+                    I'm Vishal Kumar, a first-year Computer Science student with a strong passion for transforming data into actionable insights. 
+                    My journey in technology revolves around exploring the intersections of artificial intelligence, machine learning, and data science 
+                    to solve real-world problems.
+                </p>
+                <p class="text-muted mb-4">
+                    With hands-on experience in Python, C/C++, web development, and various ML frameworks, I continuously push myself to learn 
+                    and implement cutting-edge technologies. From building intelligent chatbots using LangChain to developing computer vision 
+                    applications with OpenCV, I thrive on creating innovative solutions.
+                </p>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="glass-effect p-3">
+                            <i class="fas fa-graduation-cap text-primary fa-2x mb-2"></i>
+                            <h6 class="mb-1">Education</h6>
+                            <p class="text-muted small mb-0">First-Year CS Student</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="glass-effect p-3">
+                            <i class="fas fa-map-marker-alt text-primary fa-2x mb-2"></i>
+                            <h6 class="mb-1">Location</h6>
+                            <p class="text-muted small mb-0">India</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="glass-effect p-3">
+                            <i class="fas fa-code text-primary fa-2x mb-2"></i>
+                            <h6 class="mb-1">Specialization</h6>
+                            <p class="text-muted small mb-0">Data Science & AI</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="glass-effect p-3">
+                            <i class="fas fa-trophy text-primary fa-2x mb-2"></i>
+                            <h6 class="mb-1">Achievements</h6>
+                            <p class="text-muted small mb-0">Hackathons & Competitions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-3">
+                    <a href="/contact" class="btn btn-primary">
+                        <i class="fas fa-envelope me-2"></i>Get in Touch
+                    </a>
+                    <a href="/projects" class="btn btn-outline-primary">
+                        <i class="fas fa-folder-open me-2"></i>View Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills & Expertise -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 mb-3">
+                Skills & <span class="gradient-text">Expertise</span>
+            </h2>
+            <p class="lead text-muted">Technologies and tools I work with professionally</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Programming Languages -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-code fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Programming Languages</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Python</span>
+                            <span class="text-primary">90%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 90%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>C/C++</span>
+                            <span class="text-primary">85%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 85%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>JavaScript</span>
+                            <span class="text-primary">80%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 80%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>HTML/CSS</span>
+                            <span class="text-primary">85%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 85%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Science & ML -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-brain fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Data Science & AI</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>NumPy & Pandas</span>
+                            <span class="text-primary">90%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 90%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Machine Learning</span>
+                            <span class="text-primary">80%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 80%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>LangChain/LangGraph</span>
+                            <span class="text-primary">75%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 75%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Power BI</span>
+                            <span class="text-primary">70%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 70%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Web Development & Databases -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-effect p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-database fa-3x text-primary"></i>
+                    </div>
+                    <h4 class="text-center mb-3">Web & Databases</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Flask/Django</span>
+                            <span class="text-primary">85%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 85%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>MERN Stack</span>
+                            <span class="text-primary">75%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 75%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>MongoDB/SQL</span>
+                            <span class="text-primary">80%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 80%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>SQLite</span>
+                            <span class="text-primary">85%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 85%; background: var(--primary);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What I Do -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 mb-3">
+                What I <span class="gradient-text">Do</span>
+            </h2>
+            <p class="lead text-muted">My areas of focus and expertise</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-effect p-4 text-center h-100 hover-lift">
+                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <h5 class="mb-3">Data Analysis</h5>
+                    <p class="text-muted small">
+                        Transform raw data into actionable insights using Python, Pandas, NumPy, and visualization tools.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-effect p-4 text-center h-100 hover-lift">
+                    <i class="fas fa-robot fa-3x text-primary mb-3"></i>
+                    <h5 class="mb-3">Machine Learning</h5>
+                    <p class="text-muted small">
+                        Build and deploy ML models for classification, prediction, and clustering problems.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="glass-effect p-4 text-center h-100 hover-lift">
+                    <i class="fas fa-globe fa-3x text-primary mb-3"></i>
+                    <h5 class="mb-3">Web Development</h5>
+                    <p class="text-muted small">
+                        Create responsive, dynamic web applications using Flask, MERN stack, and modern frameworks.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="glass-effect p-4 text-center h-100 hover-lift">
+                    <i class="fas fa-comments fa-3x text-primary mb-3"></i>
+                    <h5 class="mb-3">AI Chatbots</h5>
+                    <p class="text-muted small">
+                        Develop intelligent conversational AI using LangChain, LangGraph, and Hugging Face models.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Timeline -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="display-4 mb-3">
+                My <span class="gradient-text">Journey</span>
+            </h2>
+            <p class="lead text-muted">Key milestones in my learning and development</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-marker"></div>
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">Started Computer Science</h5>
+                                <span class="badge-custom">2024</span>
+                            </div>
+                            <p class="text-muted mb-0">
+                                Began my journey in Computer Science with a focus on Data Science and Machine Learning.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="timeline-marker"></div>
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">First Hackathon</h5>
+                                <span class="badge-custom">2024</span>
+                            </div>
+                            <p class="text-muted mb-0">
+                                Participated in Smart India Hackathon, developed tourist safety system for Northeast India.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="timeline-marker"></div>
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">Data Science Projects</h5>
+                                <span class="badge-custom">2024-2025</span>
+                            </div>
+                            <p class="text-muted mb-0">
+                                Completed multiple data analysis projects including Bihar domestic violence patterns analysis.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 4 -->
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="timeline-marker"></div>
+                        <div class="glass-effect p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">AI & ML Focus</h5>
+                                <span class="badge-custom">2025</span>
+                            </div>
+                            <p class="text-muted mb-0">
+                                Exploring LangChain, LangGraph, and Hugging Face for building intelligent AI applications.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container">
+        <div class="glass-effect p-5 text-center" data-aos="zoom-in">
+            <h2 class="display-5 mb-3">
+                Let's <span class="gradient-text">Collaborate</span>
+            </h2>
+            <p class="lead text-muted mb-4">
+                I'm always excited to work on innovative projects and learn new technologies.
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="/contact" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Contact Me
+                </a>
+                <a href="https://github.com/Vishaldubey2210" target="_blank" class="btn btn-outline-primary btn-lg">
+                    <i class="fab fa-github me-2"></i>GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Profile Container for About Page */
+.profile-container-about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.profile-circle-about {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image-about {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary);
+    box-shadow: 0 15px 50px rgba(99, 102, 241, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.profile-ring-about {
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    animation: rotate 20s linear infinite;
+}
+
+.profile-ring-2-about {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 2px dashed rgba(99, 102, 241, 0.2);
+    animation: rotate 30s linear infinite reverse;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding: 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 30px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: 11px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--primary);
+}
+
+@media (max-width: 991px) {
+    .profile-circle-about {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .profile-image-about {
+        width: 240px;
+        height: 240px;
+    }
+    
+    .profile-ring-about {
+        width: 260px;
+        height: 260px;
+    }
+    
+    .profile-ring-2-about {
+        width: 290px;
+        height: 290px;
+    }
+}
+</style>
+{% endblock %}

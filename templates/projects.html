@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Projects | Vishal Kumar{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="display-3 fw-bold gradient-text mb-3">My Projects</h1>
+            <p class="lead text-muted">Showcasing my work in Data Science, ML, and Web Development</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <div class="btn-group" role="group">
+                <button class="btn btn-outline-primary active" onclick="filterProjects('all')">All</button>
+                <button class="btn btn-outline-primary" onclick="filterProjects('data-science')">Data Science</button>
+                <button class="btn btn-outline-primary" onclick="filterProjects('machine-learning')">ML</button>
+                <button class="btn btn-outline-primary" onclick="filterProjects('full-stack')">Full-Stack</button>
+                <button class="btn btn-outline-primary" onclick="filterProjects('computer-vision')">Computer Vision</button>
+            </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projects-container" class="row g-4">
+            <div class="col-12 text-center">
+                <div class="loading"></div>
+                <p class="text-muted mt-3">Loading projects...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    let allProjects = [];
+    let currentFilter = 'all';
+
+    // Load projects from API
+    async function loadProjects() {
+        try {
+            const response = await fetch('/api/projects');
+            const data = await response.json();
+            allProjects = data.projects;
+            displayProjects(allProjects);
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            document.getElementById('projects-container').innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-danger">Failed to load projects. Please try again later.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Display projects
+    function displayProjects(projects) {
+        const container = document.getElementById('projects-container');
+        
+        if (projects.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-muted">No projects found in this category.</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = projects.map((project, index) => `
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="${index * 100}">
+                <div class="project-card h-100">
+                    <img src="${project.image}" alt="${project.title}"
+                         onerror="this.src='https://via.placeholder.com/400x300/0F172A/22D3EE?text=${encodeURIComponent(project.title)}'">
+                    <div class="p-4">
+                        <span class="badge-custom mb-3">${project.category.replace('-', ' ').toUpperCase()}</span>
+                        <h4 class="text-white mb-3">${project.title}</h4>
+                        <p class="text-muted mb-3">${project.description}</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            ${project.tags.map(tag => `<span class="badge-custom">${tag}</span>`).join('')}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="${project.github}" target="_blank" class="btn btn-sm btn-outline-primary flex-grow-1">
+                                <i class="fab fa-github me-2"></i>Code
+                            </a>
+                            ${project.demo ? `
+                                <a href="${project.demo}" target="_blank" class="btn btn-sm btn-primary flex-grow-1">
+                                    <i class="fas fa-external-link-alt me-2"></i>Demo
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Filter projects
+    function filterProjects(category) {
+        currentFilter = category;
+        
+        // Update active button
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        // Filter and display
+        if (category === 'all') {
+            displayProjects(allProjects);
+        } else {
+            const filtered = allProjects.filter(p => p.category === category);
+            displayProjects(filtered);
+        }
+    }
+
+    loadProjects();
+</script>
+{% endblock %}
